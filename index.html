@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Territory Conquest — Walk. Run. Conquer.</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: #0a0a1a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Animated background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(0, 255, 136, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(0, 136, 255, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(136, 0, 255, 0.03) 0%, transparent 50%);
+            z-index: -1;
+        }
+
+        /* Grid overlay */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* HERO */
+        .hero {
+            text-align: center;
+            padding: 80px 0 60px;
+        }
+
+        .logo-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.3));
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #00ff88, #00cc6a, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: #888;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* NAV */
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            padding: 32px 0;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            margin-bottom: 48px;
+            flex-wrap: wrap;
+        }
+
+        .nav a {
+            color: #00ff88;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.05em;
+            transition: opacity 0.2s;
+        }
+
+        .nav a:hover { opacity: 0.7; }
+
+        /* SECTIONS */
+        section {
+            margin-bottom: 64px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid rgba(0, 255, 136, 0.2);
+        }
+
+        p {
+            margin-bottom: 16px;
+            color: #bbb;
+            font-size: 1rem;
+        }
+
+        /* FEATURES */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 24px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 24px;
+            transition: border-color 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(0, 255, 136, 0.3);
+        }
+
+        .feature-card .icon {
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card h3 {
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+            color: #888;
+        }
+
+        /* SUPPORT SECTION */
+        .support-box {
+            background: rgba(0, 255, 136, 0.05);
+            border: 1px solid rgba(0, 255, 136, 0.15);
+            border-radius: 16px;
+            padding: 32px;
+            text-align: center;
+        }
+
+        .support-box h2 {
+            border: none;
+            padding-bottom: 0;
+        }
+
+        .support-email {
+            display: inline-block;
+            margin-top: 16px;
+            padding: 14px 32px;
+            background: #00ff88;
+            color: #0a0a1a;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .support-email:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 255, 136, 0.3);
+        }
+
+        /* PRIVACY & TERMS */
+        .legal h3 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin: 24px 0 12px;
+            font-weight: 600;
+        }
+
+        .legal ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .legal ul li {
+            padding: 6px 0;
+            color: #999;
+            font-size: 0.95rem;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .legal ul li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: #00ff88;
+            font-weight: bold;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 48px 0;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            color: #555;
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: #00ff88;
+            text-decoration: none;
+        }
+
+        /* PAGE SPECIFIC */
+        .page-section {
+            display: none;
+        }
+        .page-section.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <div class="logo-icon">🗺️</div>
+            <h1>Territory Conquest</h1>
+            <p class="tagline">Walk. Run. Conquer Your City.</p>
+        </div>
+
+        <nav class="nav">
+            <a href="#home" onclick="showPage('home')">Home</a>
+            <a href="#support" onclick="showPage('support')">Support</a>
+            <a href="#privacy" onclick="showPage('privacy')">Privacy Policy</a>
+            <a href="#terms" onclick="showPage('terms')">Terms of Service</a>
+        </nav>
+
+        <!-- HOME -->
+        <div id="home" class="page-section active">
+            <section>
+                <p style="font-size: 1.15rem; color: #ccc; text-align: center; max-width: 600px; margin: 0 auto 40px;">
+                    Transform your daily exercise into an epic battle for real-world territory. Walk a loop, capture the land, build your empire.
+                </p>
+
+                <div class="features">
+                    <div class="feature-card">
+                        <div class="icon">🏃</div>
+                        <h3>Walk, Run, or Cycle</h3>
+                        <p>Every activity earns you territory. Track distance, steps, speed and time.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🗺️</div>
+                        <h3>Capture Territory</h3>
+                        <p>Walk a GPS loop to claim real-world land on the map. The bigger the loop, the bigger your empire.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">⚔️</div>
+                        <h3>Compete & Defend</h3>
+                        <p>Challenge friends, climb leaderboards, and defend your territories from rival players.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🏆</div>
+                        <h3>Achievements</h3>
+                        <p>Unlock 18 achievements, build daily streaks, and track your fitness progress.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">📱</div>
+                        <h3>Background Tracking</h3>
+                        <p>Lock your phone and pocket it. GPS keeps recording your route in the background.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="icon">🌍</div>
+                        <h3>Global Leaderboard</h3>
+                        <p>Compete with players in your country and around the world.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- SUPPORT -->
+        <div id="support" class="page-section">
+            <section>
+                <div class="support-box">
+                    <h2>Need Help?</h2>
+                    <p>We're here to help with any questions, issues, or feedback about Territory Conquest.</p>
+                    <a href="mailto:support@territoryconquest.com" class="support-email">
+                        support@territoryconquest.com
+                    </a>
+                    <p style="margin-top: 20px; font-size: 0.9rem; color: #666;">
+                        We aim to respond within 24 hours.
+                    </p>
+                </div>
+            </section>
+
+            <section>
+                <h2>Frequently Asked Questions</h2>
+                
+                <h3 style="color: #fff; margin-top: 20px;">How do I capture territory?</h3>
+                <p>Start a session, then walk, run, or cycle in a loop. When your path crosses itself or comes close to where you started, the enclosed area becomes your territory.</p>
+                
+                <h3 style="color: #fff; margin-top: 20px;">Does the app track me when it's closed?</h3>
+                <p>Only during an active session. When you stop your session, all GPS tracking stops. Background tracking only works while a session is running and you've granted "Always Allow" location permission.</p>
+                
+                <h3 style="color: #fff; margin-top: 20px;">Can other players take my territory?</h3>
+                <p>Yes! Other players can capture your territory by walking their own loops through your land. Strengthen your territories by revisiting them to make them harder to capture.</p>
+                
+                <h3 style="color: #fff; margin-top: 20px;">Is Territory Conquest free?</h3>
+                <p>Yes, Territory Conquest is completely free to download and play.</p>
+                
+                <h3 style="color: #fff; margin-top: 20px;">How do I add friends?</h3>
+                <p>Go to the Friends tab in the app, then use the search function to find friends by their username. Send them a friend request and once accepted, you'll see each other on the leaderboard.</p>
+            </section>
+        </div>
+
+        <!-- PRIVACY POLICY -->
+        <div id="privacy" class="page-section">
+            <section class="legal">
+                <h2>Privacy Policy</h2>
+                <p><strong>Last updated:</strong> 15 February 2026</p>
+                <p>Territory Conquest Ltd ("we", "our", "us") operates the Territory Conquest mobile application. This Privacy Policy explains how we collect, use, and protect your information.</p>
+
+                <h3>1. Information We Collect</h3>
+                <ul>
+                    <li><strong>Account Information:</strong> Email address, username, and profile picture when you create an account.</li>
+                    <li><strong>Location Data:</strong> Real-time GPS coordinates during active sessions, background location when explicitly enabled during sessions, and route data used to create territory polygons.</li>
+                    <li><strong>Activity Data:</strong> Distance, duration, speed, steps, routes, and territory data (polygons, areas, strength levels).</li>
+                    <li><strong>Device Information:</strong> Device type, operating system version, and app version for troubleshooting.</li>
+                    <li><strong>Usage Data:</strong> How you interact with the app, session frequency, and feature usage.</li>
+                </ul>
+
+                <h3>2. How We Use Your Information</h3>
+                <ul>
+                    <li>To provide core gameplay functionality (territory capture, leaderboards, achievements).</li>
+                    <li>To display your territories and route on the map.</li>
+                    <li>To enable social features (friends, leaderboards, territory battles).</li>
+                    <li>To improve the app and fix issues.</li>
+                    <li>To send push notifications about territory activity (when enabled by you).</li>
+                </ul>
+
+                <h3>3. Location Data</h3>
+                <p>Location data is central to Territory Conquest's gameplay. We collect GPS data only during active sessions. When you end a session, real-time tracking stops. Background location tracking only operates during active sessions when you have granted "Always Allow" permission, allowing the app to record your route while your screen is locked or you're using other apps.</p>
+                <p>Your location data is used to create territories, calculate distances, and display your position on the map. Territory polygon data is stored on our servers to enable multiplayer features.</p>
+
+                <h3>4. Data Sharing</h3>
+                <p>We do not sell your personal data. Your username, territory data, and leaderboard statistics are visible to other players as part of the game. We may share data with service providers who help us operate the app (e.g., database hosting, map services).</p>
+
+                <h3>5. Data Storage</h3>
+                <p>Your data is stored securely using Supabase (cloud database) and is protected by industry-standard encryption. Data is stored on servers located in the EU/UK.</p>
+
+                <h3>6. Your Rights</h3>
+                <p>Under UK GDPR, you have the right to access, correct, or delete your personal data. You can delete your account and all associated data from within the app (Profile > Delete Account). To exercise other rights, contact us at support@territoryconquest.com.</p>
+
+                <h3>7. Children's Privacy</h3>
+                <p>Territory Conquest is not directed at children under 13. We do not knowingly collect personal information from children under 13.</p>
+
+                <h3>8. Changes to This Policy</h3>
+                <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page and updating the "Last updated" date.</p>
+
+                <h3>9. Contact Us</h3>
+                <p>If you have any questions about this Privacy Policy, please contact us at <a href="mailto:support@territoryconquest.com" style="color: #00ff88;">support@territoryconquest.com</a>.</p>
+                <p>Territory Conquest Ltd<br>United Kingdom</p>
+            </section>
+        </div>
+
+        <!-- TERMS OF SERVICE -->
+        <div id="terms" class="page-section">
+            <section class="legal">
+                <h2>Terms of Service</h2>
+                <p><strong>Last updated:</strong> 15 February 2026</p>
+                <p>By downloading or using Territory Conquest, you agree to these Terms of Service.</p>
+
+                <h3>1. The Service</h3>
+                <p>Territory Conquest is a location-based fitness game that uses GPS data to enable players to capture real-world territory through physical activity.</p>
+
+                <h3>2. Your Account</h3>
+                <p>You must create an account to use Territory Conquest. You are responsible for maintaining the security of your account and for all activity under your account. You must be at least 13 years old to create an account.</p>
+
+                <h3>3. Acceptable Use</h3>
+                <ul>
+                    <li>Use the app safely and legally. Do not trespass on private property to capture territory.</li>
+                    <li>Be aware of your surroundings at all times while using the app.</li>
+                    <li>Do not use the app while driving or operating vehicles.</li>
+                    <li>Do not use automated tools, bots, or GPS spoofing to gain an unfair advantage.</li>
+                    <li>Do not harass, abuse, or threaten other players.</li>
+                    <li>Do not upload offensive or inappropriate content.</li>
+                </ul>
+
+                <h3>4. Location Data</h3>
+                <p>The app uses real-time and background location data to deliver core gameplay functionality. By using the app, you consent to GPS tracking during active sessions, background location tracking where explicitly enabled, and storage of location data to create territories and calculate statistics.</p>
+
+                <h3>5. Safety</h3>
+                <p>Territory Conquest is not responsible for any injury, damage, or loss that occurs while using the app. Always prioritise your personal safety. Do not enter unsafe areas, private property, or restricted zones to capture territory. Obey all local laws and regulations.</p>
+
+                <h3>6. Intellectual Property</h3>
+                <p>Territory Conquest and all related content, features, and functionality are owned by Territory Conquest Ltd and are protected by copyright, trademark, and other intellectual property laws.</p>
+
+                <h3>7. Termination</h3>
+                <p>We may suspend or terminate your account if you violate these terms. You may delete your account at any time from within the app.</p>
+
+                <h3>8. Changes to Terms</h3>
+                <p>We may update these terms from time to time. Continued use of the app after changes constitutes acceptance of the new terms.</p>
+
+                <h3>9. Contact</h3>
+                <p>For questions about these terms, contact us at <a href="mailto:support@territoryconquest.com" style="color: #00ff88;">support@territoryconquest.com</a>.</p>
+                <p>Territory Conquest Ltd<br>United Kingdom</p>
+            </section>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Territory Conquest Ltd. All rights reserved.</p>
+            <p style="margin-top: 8px;">
+                <a href="#privacy" onclick="showPage('privacy')">Privacy Policy</a> &nbsp;·&nbsp;
+                <a href="#terms" onclick="showPage('terms')">Terms of Service</a> &nbsp;·&nbsp;
+                <a href="#support" onclick="showPage('support')">Support</a>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        function showPage(page) {
+            document.querySelectorAll('.page-section').forEach(el => el.classList.remove('active'));
+            document.getElementById(page).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        // Handle hash navigation
+        if (window.location.hash) {
+            const page = window.location.hash.replace('#', '');
+            if (document.getElementById(page)) {
+                showPage(page);
+            }
+        }
+    </script>
+</body>
+</html>
