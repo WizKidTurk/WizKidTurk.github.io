@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Territory Conquest — Download</title>
+    <meta name="description" content="Turn every walk, run, and cycle into a real-life strategy game. Claim real-world territory with GPS. Download free.">
+    
+    <!-- Open Graph for link previews -->
+    <meta property="og:title" content="Territory Conquest">
+    <meta property="og:description" content="Walk. Run. Conquer. Claim real-world territory by completing GPS loops. Download free.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wizkidturk.github.io/download">
+    
+    <!-- Smart App Banner for iOS Safari -->
+    <meta name="apple-itunes-app" content="app-id=6759222814">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: #0d0d1a;
+            color: #fff;
+            font-family: 'Outfit', -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+        
+        /* Animated background grid */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(0, 255, 136, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(0, 180, 216, 0.04) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(245, 166, 35, 0.03) 0%, transparent 50%);
+            z-index: 0;
+        }
+        
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 40px 24px;
+            max-width: 480px;
+            width: 100%;
+        }
+        
+        .logo-icon {
+            font-size: 64px;
+            margin-bottom: 8px;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        
+        h1 {
+            font-size: 2.4rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            margin-bottom: 4px;
+            background: linear-gradient(135deg, #00ff88, #00b4d8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #888;
+            margin-bottom: 32px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .description {
+            font-size: 1.05rem;
+            color: #aaa;
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+        
+        .description strong {
+            color: #fff;
+        }
+        
+        /* Feature pills */
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 36px;
+        }
+        
+        .pill {
+            background: rgba(0, 255, 136, 0.08);
+            border: 1px solid rgba(0, 255, 136, 0.2);
+            border-radius: 100px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            color: #00ff88;
+            font-weight: 600;
+        }
+        
+        /* Download buttons */
+        .download-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+        
+        .download-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px 24px;
+            border-radius: 14px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .download-btn:active {
+            transform: scale(0.97);
+        }
+        
+        .btn-ios {
+            background: #fff;
+            color: #000;
+        }
+        
+        .btn-ios:hover {
+            background: #f0f0f0;
+        }
+        
+        .btn-ios svg {
+            width: 22px;
+            height: 22px;
+        }
+        
+        .btn-android {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #aaa;
+        }
+        
+        .btn-android:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+        
+        /* Stats */
+        .stats-row {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: #00ff88;
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+        
+        /* Footer */
+        .footer {
+            color: #333;
+            font-size: 0.8rem;
+        }
+        
+        .footer a {
+            color: #444;
+            text-decoration: none;
+        }
+        
+        /* Auto-redirect message */
+        .redirect-msg {
+            display: none;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            border-radius: 12px;
+            padding: 14px 20px;
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+            color: #00ff88;
+        }
+        
+        .redirect-msg.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-icon">🎮</div>
+        <h1>Territory Conquest</h1>
+        <p class="tagline">Walk. Run. Conquer.</p>
+        
+        <div id="redirect-msg" class="redirect-msg"></div>
+        
+        <p class="description">
+            Turn every walk, run, and cycle into a <strong>real-life strategy game</strong>. 
+            Your GPS path draws on a live map — complete a loop to <strong>claim that territory as your own</strong>. 
+            Compete with friends, battle for land, and build your empire.
+        </p>
+        
+        <div class="features">
+            <span class="pill">🗺️ GPS Territory Capture</span>
+            <span class="pill">⚔️ Territory Battles</span>
+            <span class="pill">🏆 Leaderboards</span>
+            <span class="pill">👥 Clans & Friends</span>
+            <span class="pill">📍 Your Run Always Counts</span>
+        </div>
+        
+        <div class="download-buttons">
+            <a id="btn-ios" class="download-btn btn-ios" href="https://apps.apple.com/app/territory-conquest/id6759222814">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                Download for iPhone
+            </a>
+            <a id="btn-android" class="download-btn btn-android" href="#">
+                Android coming soon
+            </a>
+        </div>
+        
+        <div class="stats-row">
+            <div class="stat">
+                <div class="stat-value">Free</div>
+                <div class="stat-label">No Ads</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">GPS</div>
+                <div class="stat-label">Powered</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">Real</div>
+                <div class="stat-label">Territory</div>
+            </div>
+        </div>
+        
+        <p class="footer">
+            <a href="https://wizkidturk.github.io/terms">Terms</a> · 
+            <a href="https://wizkidturk.github.io/privacy">Privacy</a> · 
+            © 2026 Territory Conquest Ltd
+        </p>
+    </div>
+    
+    <script>
+        // Smart redirect based on device
+        const APP_STORE_URL = 'https://apps.apple.com/app/territory-conquest/id6759222814';
+        // const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.territoryconquest.app';
+        
+        const ua = navigator.userAgent || '';
+        const isIOS = /iPhone|iPad|iPod/i.test(ua);
+        const isAndroid = /Android/i.test(ua);
+        
+        const redirectMsg = document.getElementById('redirect-msg');
+        
+        if (isIOS) {
+            redirectMsg.textContent = '📱 Redirecting you to the App Store...';
+            redirectMsg.classList.add('show');
+            setTimeout(() => {
+                window.location.href = APP_STORE_URL;
+            }, 1500);
+        } else if (isAndroid) {
+            redirectMsg.textContent = '🤖 Android version coming soon! Join the waitlist.';
+            redirectMsg.classList.add('show');
+        }
+    </script>
+</body>
+</html>
